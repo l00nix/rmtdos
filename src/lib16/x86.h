@@ -17,6 +17,9 @@
 #define CPU_FLAG_DIRECTION (1 << 10)
 #define CPU_FLAG_OVERFLOW (1 << 11)
 
+// WARNING: DO NOT CHANGE THE LAYOUT OF THIS STRUCTURE.
+// Our asm source (*.s) assumes non-symbolic offsets, due to `as86` not being
+// able to import C header files.
 struct CpuRegs {
   union {
     struct Words {
@@ -56,25 +59,23 @@ void x86_reset_regs(struct CpuRegs *regs);
 // except that the following are NOT set before calling the interrupt:
 // `bp`, `sp`, `flags`, `cs`, `ss`.
 // Return value is AX register value (as signed int).
+// CPU registers in `regs` are updated with the values they have when the
+// interrupt returns.
 int x86_call(uint8_t irq, struct CpuRegs *regs);
 
 // Copies a NUL-terminated string from `segment:offset` into `dest`, up to
-// maxlen chars.  Will terminate the result with NUL< even if it is truncated.
+// maxlen chars.  Will terminate the result with NUL, even if it is truncated.
 // Returns could of characters copied, including the terminating NUL.
 int x86_read_asciiz(char *dest, size_t maxlen, uint16_t segment,
                     uint16_t offset);
 
 // Copies `count` bytes from source to dest.
-// Needed b/c the 'bcc' compiler only emits for the 'Tiny' memory model,
+// Needed b/c the 'bcc' compiler only emits code for the 'Tiny' memory model,
 // with all 4 segment registers having identical values.
-// Undefined behavior is `source` and `dest` overlap.
+// Undefined behavior if `source` and `dest` overlap.
 void x86_memcpy_bytes(uint16_t dest_segment, uint16_t dest_offset,
                       uint16_t src_segment, uint16_t src_offset,
                       uint16_t byte_count);
-
-void x86_memcpy_words(uint16_t dest_segment, uint16_t dest_offset,
-                      uint16_t src_segment, uint16_t src_offset,
-                      uint16_t word_count);
 
 // Disables interrupts and returns previous CPU flags.
 // Note that interrupts might have already been disabled.
@@ -85,11 +86,13 @@ extern uint16_t x86_cli();
 extern uint16_t x86_sti(uint16_t saved_flags);
 
 // Invokes int 28h, to allow DOS to perform IDLE processing.
+// On a stock FreeDOS system, this will invoke the FDAPM.COM TSR, which will
+// surrender a timeslice to any VM that it is running in (cpu "hlt").
 extern void x86_dos_idle();
 
 // Returns 4 bytes from "0040:006c", a 32-bit counter maintained by BIOS
 // that counts the number of INT 8 occurrences.  Unless some other system
-// reprograms the timer chip to run faster (like MSDOS), then the timer
+// reprograms the timer chip to run faster (like GWBASIC), then the timer
 // frequency is 18.2065 ticks/s, or 54.9254 ms.
 extern uint32_t x86_read_bios_tick_clock();
 

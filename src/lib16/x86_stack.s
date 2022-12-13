@@ -9,7 +9,7 @@
 ; 2. Do not take the address of anything on main's stack frame.
 ; 3. Must be called with an EVEN argument!
 ;
-; Assumes the following On entry:
+; Assumes the following on entry:
 ; 1. That current top of stack is 0x0000.
 ; 2. CS=DS=ES=SS.
 ; 3. SS:SP is current bottom of stack.

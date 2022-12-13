@@ -8,13 +8,13 @@
 
 static size_t g_buffer_count = 0;
 
-static struct Buffer *g_buffers;
+static struct Buffer *g_buffers = NULL;
 
 // Root pointer of the free list.
-static struct Buffer *g_free_list;
+static struct Buffer *g_free_list = NULL;
 
 // Pointer to the next 'ready' buffer.
-static struct Buffer *g_ready_list;
+static struct Buffer *g_ready_list = NULL;
 
 #if DEBUG
 void buffer_debug_dump(FILE *fp) {
@@ -89,7 +89,7 @@ void buffer_mark_ready(void *data) {
 
   // We can only hope that the packet driver passed us good data.
   // If the address is wrong, or the "buf->state != BUFFER_PENDING", then
-  // we have an error, but not easy way to handle it.
+  // we have an error, but no easy way to handle it.
   buf->state = BUFFER_READY;
   buf->next = g_ready_list;
   g_ready_list = buf;

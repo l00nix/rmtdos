@@ -12,7 +12,7 @@ extern void vga_mode_80x25();
 extern void vga_mode_80x43();
 extern void vga_mode_80x50();
 
-// Copy 'words' coutn of WORDS (16-bit ints) from VGA Text Mode frame buffer,
+// Copy 'words' count of WORDS (16-bit ints) from VGA Text Mode frame buffer,
 // starting at offset from [$b800:0000] into dest.
 extern void vga_copy_from_frame_buffer(void *dest, uint16_t offset,
                                        uint16_t words);
