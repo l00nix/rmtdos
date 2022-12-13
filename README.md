@@ -105,6 +105,15 @@ development:
 
 ## FAQ
 
+Q: Why was this project developed using "dev86", which has poor support for
+modern C?
+
+A: I prefer to do development from my Linux system, and treat DOS as an embedded
+system that I can push binaries to.  So I needed a C compiler that can run on
+Linux and produce DOS real-mode programs.  GCC cannot do this.  I attempted and
+failed to get OpenWatcom 1.9 and 2.0 to compile cleanly on Gentoo Linux, so
+I used "dev86", which exists for both Linux and DOS.
+
 Q: Why did you use raw Ethernet packets and not TCP/IP or UDP?
 
 A: Memory overhead.  A primary design criteria was to keep the memory usage
@@ -167,7 +176,7 @@ been auditing the memory usage by examining the linker map via:
 
 - `make && sort -k3 out/rmtdos.map`
 
-And by using `DEBUG.COM` to peek at the TSR's private ISR (interrupt service
+And by using `debug.com` to peek at the TSR's private ISR (interrupt service
 routine) stack usage (to see if it is safe to shrink the ISR stacks).
 
 1. Build the software, examine the linker map:
@@ -181,12 +190,12 @@ routine) stack usage (to see if it is safe to shrink the ISR stacks).
                  pktrecv      pktdrv_stack_top  3  000033a8  r
    ```
 
-1. Then load `RMTDOS.COM` in DOS.  Observe the printed PSP value.
+1. Then load `rmtdos.com` in DOS.  Observe the printed PSP value.
 
 1. Connect with the client from Linux.  This will cause `rmtdos` to start
    using its ISR stacks.
 
-1. Run `DEBUG.COM`, and examine the RAM where the stacks are (example is
+1. Run `debug.com`, and examine the RAM where the stacks are (example is
    for `pktdrv_stack_bottom`:
 
 ```
