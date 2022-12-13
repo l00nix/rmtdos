@@ -4,7 +4,7 @@ Remotely control DOS-based systems from Linux
 
 Tested on FreeDOS-1.3 in QEMU and on a real Pentium-MMX 166 MHz.
 
-"rmtdos" contains a DOS (FreeDOS or MSDOS or equivilent) TSR that allows a
+"rmtdos" contains a DOS (FreeDOS or MSDOS or equivalent) TSR that allows a
 Linux system on the same LAN to remotely control the DOS system.
 
 ## Theory of Operation
@@ -102,8 +102,8 @@ of them would have added serious developmental delays and RAM costs:
 
 A: Compatibility with other mTCP programs.  mTCP tells the packet driver
 that it wants to register for ALL EtherTypes, but it only really uses
-"ARP" (0x0806) and "IPV4" (0x0800).  If `rmtdos.com` regsiters for the same,
-then the packet driver won't let any mTCP program successfuly run.  Since
+"ARP" (0x0806) and "IPV4" (0x0800).  If `rmtdos.com` registers for the same,
+then the packet driver won't let any mTCP program successfully run.  Since
 `rmtdos.com` uses its own EtherType, both stacks can co-exist on the same
 packet driver and not require a packet multiplexor.
 
