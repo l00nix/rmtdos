@@ -1,0 +1,20 @@
+#ifndef __RMTDOS_SERVER_CONFIG_H
+#define __RMTDOS_SERVER_CONFIG_H
+
+/* Maximum count of Ethernet buffers to dynamically allocate before going
+   resident.  In practice, we only need 2 or 3, but really slow machines might
+   need more to avoid packet drops.
+*/
+#define MAX_BUFFERS 10
+
+/* Count of buffers to allocate if not overridden on the command line. */
+#define DEFAULT_BUFFERS 2
+
+/* Enabling 'DEBUG' will considerably increase the resident memory usage. */
+#define DEBUG 0
+
+/* Int 28 ("Dos Idle") is not used at the moment.  So we can disable it in
+   code to reduce our resident memory usage. */
+#define HAS_INT28 0
+
+#endif /* __RMTDOS_SERVER_CONFIG_H */
