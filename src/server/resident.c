@@ -1,3 +1,8 @@
+/*
+ * Copyright 2022 Dennis Jenkins <dennis.jenkins.75@gmail.com>
+ * SPDX-License-Identifier: GPL-2.0-or-later
+ */
+
 // Contains main entry points for the "resident" portion of the server.
 
 #ifdef __BCC__

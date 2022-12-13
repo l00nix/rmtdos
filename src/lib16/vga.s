@@ -1,3 +1,6 @@
+;  SPDX-FileCopyrightText: 2022 Dennis Jenkins <dennis.jenkins.75@gmail.com>
+;  SPDX-License-Identifier: GPL-2.0-or-later
+
 ; // vga_write(int x, int y, uint8_t attr, const char *str)
 .text
 .global _vga_write_str

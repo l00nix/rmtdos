@@ -1,3 +1,6 @@
+;  SPDX-FileCopyrightText: 2022 Dennis Jenkins <dennis.jenkins.75@gmail.com>
+;  SPDX-License-Identifier: GPL-2.0-or-later
+
 #if __FIRST_ARG_IN_AX__
   #error __FIRST_ARG_IN_AX__ not supported
 #endif

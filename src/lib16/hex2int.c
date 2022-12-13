@@ -1,3 +1,8 @@
+/*
+ * Copyright 2022 Dennis Jenkins <dennis.jenkins.75@gmail.com>
+ * SPDX-License-Identifier: GPL-2.0-or-later
+ */
+
 /* BCC is weird.  "const" does not exist, so we must include stdlib.h to
    get the macro that makes "const" go away. */
 #include <stdlib.h>

@@ -1,3 +1,8 @@
+/*
+ * Copyright 2022 Dennis Jenkins <dennis.jenkins.75@gmail.com>
+ * SPDX-License-Identifier: GPL-2.0-or-later
+ */
+
 #ifndef RMTDOS_SERVER_INT08_H
 #define RMTDOS_SERVER_INT08_H
 

@@ -1,3 +1,8 @@
+/*
+ * Copyright 2022 Dennis Jenkins <dennis.jenkins.75@gmail.com>
+ * SPDX-License-Identifier: GPL-2.0-or-later
+ */
+
 // server/session.h
 //
 // Manages sessions (connects to a client).

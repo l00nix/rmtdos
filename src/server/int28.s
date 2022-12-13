@@ -1,3 +1,6 @@
+;  SPDX-FileCopyrightText: 2022 Dennis Jenkins <dennis.jenkins.75@gmail.com>
+;  SPDX-License-Identifier: GPL-2.0-or-later
+
 ; Implements "int 28", our "DOS Idle" interrupt handler.  This is called when
 ; DOS is "idle, waiting for user input".  It is safe to make some DOS (int 21)
 ; calls during this time.

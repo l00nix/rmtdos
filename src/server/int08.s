@@ -1,3 +1,6 @@
+;  SPDX-FileCopyrightText: 2022 Dennis Jenkins <dennis.jenkins.75@gmail.com>
+;  SPDX-License-Identifier: GPL-2.0-or-later
+
 ; Implements "int 08", "BIOS Timer" interrupt handler (~18.2065/s).
 
 .data

@@ -1,3 +1,6 @@
+#  SPDX-FileCopyrightText: 2022 Dennis Jenkins <dennis.jenkins.75@gmail.com>
+#  SPDX-License-Identifier: GPL-2.0-or-later
+
 # Using "dev86" (https://github.com/lkundrak/dev86)
 AR=ar
 AS86=as86

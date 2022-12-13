@@ -1,3 +1,8 @@
+/*
+ * Copyright 2022 Dennis Jenkins <dennis.jenkins.75@gmail.com>
+ * SPDX-License-Identifier: GPL-2.0-or-later
+ */
+
 /* 'bcc' does not seem to have a 'stdint.h' that I can include. */
 
 #ifndef __RMTDOS_LIB16_TYPES_H__

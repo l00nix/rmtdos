@@ -1,3 +1,8 @@
+/*
+ * Copyright 2022 Dennis Jenkins <dennis.jenkins.75@gmail.com>
+ * SPDX-License-Identifier: GPL-2.0-or-later
+ */
+
 // Routines for accessing a Crynwr Packet Driver.
 //
 // http://crynwr.com/packet_driver.html

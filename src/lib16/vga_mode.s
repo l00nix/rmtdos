@@ -1,3 +1,6 @@
+;  SPDX-FileCopyrightText: 2022 Dennis Jenkins <dennis.jenkins.75@gmail.com>
+;  SPDX-License-Identifier: GPL-2.0-or-later
+
 ; // void vga_mode_80x25();
 .text
 .global _vga_mode_80x25

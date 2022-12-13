@@ -1,3 +1,8 @@
+/*
+ * Copyright 2022 Dennis Jenkins <dennis.jenkins.75@gmail.com>
+ * SPDX-License-Identifier: GPL-2.0-or-later
+ */
+
 // Values common to the client and server.
 //
 // NOTE: The values here MUST compile identically under 'bcc' for 16-bit
