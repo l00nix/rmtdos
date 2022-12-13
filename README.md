@@ -71,6 +71,29 @@ Then select the client that you want to connect.
 ![Client view](/images/live.png)
 ![Another demo](/images/defrag.png)
 
+## Building
+
+1. Install ["dev86"](https://github.com/lkundrak/dev86), which provides a
+   16-bit x86 compiler, assembler, and linker.
+1. `make`
+1. `sudo make setcap` (optional, see https://stackoverflow.com/a/46466642).
+1. Copy `out/rmtdos.com` and `out/vga_demo.com` (optional) to a DOS system.
+
+There are some non-traditional makefile targets that i find handy during
+development:
+
+1. `make format` - Reformats the C code w/ clang-format.
+1. `make setcap` - Runs the `setcap` command on the client, so enable a
+   non-root user to run it without requiring sudo.
+1. `make typos` - Runs [typos](https://crates.io/crates/typos) on the source
+   files, finding spelling mistakes.
+1. `make bcclint` - Horrible hack that attempts to compile the DOS binaries
+   with actual GCC (it will fail to produce a binary).  This is useful because
+   dev86's compiler, `bcc` is a traditional K&R compiler, and will unhelpfully
+   assume function prototypes if you forget to include the proper header.
+   Modern `gcc -Wall` can be much more strict and issue all kinds of warnings
+   for bad coding practices.
+
 ## Future Plans
 
 1. Add mouse support.  DOS has
@@ -111,7 +134,9 @@ Q: Can I build it on DOS?
 
 A: `rmtdos.com` and `vga_demo.com` might build there, but I've not bothered
 trying.  Currently, all 3 programs are built on Linux.  The DOS programs
-are built using ["dev86"](https://github.com/lkundrak/dev86).
+are built using ["dev86"](https://github.com/lkundrak/dev86).  FreeDOS ships
+with "dev86" (if it is not already installed, you can install it with the
+FreeDOS utility "fdimples").
 
 Q: How to I exit the client?
 
