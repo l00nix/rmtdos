@@ -159,3 +159,60 @@ driver.  On the Linux end, configure "cslip" on the serial TTY device.  This
 guide contains a step-by-step walkthrough:
 
 - https://mcmackins.org/stories/dos-slip.html
+
+Q: `rmtdos.com` is optimized for minimal memory usage.  How did you audit that?
+
+A: Well, its a goal.  I'm sure that there is always room for improvement.  I've
+been auditing the memory usage by examining the linker map via:
+
+- `make && sort -k3 out/rmtdos.map`
+
+And by using `DEBUG.COM` to peek at the TSR's private ISR (interrupt service
+routine) stack usage (to see if it is safe to shrink the ISR stacks).
+
+1. Build the software, examine the linker map:
+
+```make && sort -k3 out/rmtdos.map | grep "stack_"
+               int08   _int08_stack_bottom  3  00003020  R
+               int08      _int08_stack_top  3  00003220  R
+               int2f   _int2f_stack_bottom  3  00003224  R
+               int2f      _int2f_stack_top  3  000032a4  R
+             pktrecv   pktdrv_stack_bottom  3  000032a8  r
+             pktrecv      pktdrv_stack_top  3  000033a8  r
+```
+
+1. Then load `RMTDOS.COM` in DOS.  Observe the printed PSP value.
+
+1. Connect with the client from Linux.  This will cause `rmtdos` to start
+   using its ISR stacks.
+
+1. Run `DEBUG.COM`, and examine the RAM where the stacks are (example is
+   for `pktdrv_stack_bottom`:
+
+```
+C:\TEMP>rmtdos
+Packet Driver Initialized.  irq:0x60, NE2100, 82:00:00:00:00:09, et:80ab
+Going resident.  PSP:073b, Last Addr: 4c50
+
+C:\TEMP>debug
+-d 073b:32a8
+073B:32A0                         -00 00 00 00 00 00 00 00         ........
+073B:32B0  00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00 ................
+073B:32C0  00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00 ................
+073B:32D0  00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00 ................
+073B:32E0  00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00 ................
+073B:32F0  00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00 ................
+073B:3300  00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00 ................
+073B:3310  00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00 ................
+073B:3320  00 00 00 00 00 00 00 00-                        ........
+-d
+073B:3320                         -00 00 00 00 00 00 00 00         ........
+073B:3330  00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00 ................
+073B:3340  00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00 ................
+073B:3350  00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00 ................
+073B:3360  00 00 00 00 00 00 4E 3C-4E 3C 54 3C 90 3C 78 33 ......N<N<T<.<x3
+073B:3370  57 1E 54 3C 54 3C 90 3C-82 33 FD 2A 82 33 3B 07 W.T<T<.<.3.*.3;.
+073B:3380  82 33 01 00 40 01 3C 00-00 00 54 3C 90 3C 82 33 .3..@.<...T<.<.3
+073B:3390  82 33 00 00 3B 07 3B 07-3B 07 3B 07 3A 0A 00 00 .3..;.;.;.;.:...
+073B:33A0  C6 02 E6 00 64 0D 00 00-                        ....d...
+```
