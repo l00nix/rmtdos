@@ -172,14 +172,14 @@ routine) stack usage (to see if it is safe to shrink the ISR stacks).
 
 1. Build the software, examine the linker map:
 
-```make && sort -k3 out/rmtdos.map | grep "stack_"
-               int08   _int08_stack_bottom  3  00003020  R
-               int08      _int08_stack_top  3  00003220  R
-               int2f   _int2f_stack_bottom  3  00003224  R
-               int2f      _int2f_stack_top  3  000032a4  R
-             pktrecv   pktdrv_stack_bottom  3  000032a8  r
-             pktrecv      pktdrv_stack_top  3  000033a8  r
-```
+   ```make && sort -k3 out/rmtdos.map | grep "stack_"
+                   int08   _int08_stack_bottom  3  00003020  R
+                   int08      _int08_stack_top  3  00003220  R
+                   int2f   _int2f_stack_bottom  3  00003224  R
+                   int2f      _int2f_stack_top  3  000032a4  R
+                 pktrecv   pktdrv_stack_bottom  3  000032a8  r
+                 pktrecv      pktdrv_stack_top  3  000033a8  r
+   ```
 
 1. Then load `RMTDOS.COM` in DOS.  Observe the printed PSP value.
 
