@@ -148,4 +148,5 @@ the DOS end.
 Q: How can I view the raw Ethernet traffic (tcpdump filter expression)?
 
 A: `tcpdump 'ether proto 0x80ab'`
+
 A: (wireshark): `"eth.type == 0x80ab"`
