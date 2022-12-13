@@ -79,7 +79,7 @@ Then select the client that you want to connect.
 1. `sudo make setcap` (optional, see https://stackoverflow.com/a/46466642).
 1. Copy `out/rmtdos.com` and `out/vga_demo.com` (optional) to a DOS system.
 
-There are some non-traditional makefile targets that i find handy during
+There are some non-traditional makefile targets that I find handy during
 development:
 
 1. `make format` - Reformats the C code w/ clang-format.
