@@ -31,8 +31,6 @@
 #include "server/util.h"
 
 #ifdef __GNUC__
-extern int kbhit();
-extern char getch();
 extern long __getvect(int);
 extern void __setvect(int, long);
 extern uint16_t __envseg, __psp;
