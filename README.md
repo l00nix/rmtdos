@@ -150,3 +150,12 @@ Q: How can I view the raw Ethernet traffic (tcpdump filter expression)?
 A: `tcpdump 'ether proto 0x80ab'`
 
 A: (wireshark): `"eth.type == 0x80ab"`
+
+Q: My DOS system does not have a NIC, can I use a serial port?
+
+A: Yes (in theory, I've not tested this).  Connect the DOS system to your
+Linux system via "null-modem" cable.  On the DOS side, run the "CSLIP" packet
+driver.  On the Linux end, configure "cslip" on the serial TTY device.  This
+guide contains a step-by-step walkthrough:
+
+- https://mcmackins.org/stories/dos-slip.html
