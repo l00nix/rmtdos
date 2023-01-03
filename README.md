@@ -14,7 +14,7 @@ that runs on Linux (`rmtdos-client`).  There is also a VGA text mode demo
 (`vga_demo.com`) program for testing VGA text video modes and displaying test
 patterns.
 
-`rmtdos.com`:
+`rmtdos.com` ("server"):
 
 1. Probes for a local
    [PC/TCP packet driver](http://crynwr.com/packet_driver.html) (or you can
@@ -36,9 +36,9 @@ patterns.
 
 1. The client probes the local LAN by broadcasting a special packet for the same
    EtherType.
-1. Presents a cheesy ncurses UI that lists discovered clients, and allows the
-   user to select one (just press the key for the client ID, `0`-`9`).
-1. Periodically sends a refresher packet to the client the user wants to
+1. Presents a cheesy ncurses UI that lists discovered servers, and allows the
+   user to select one (just press the key for the server ID, `0`-`9`).
+1. Periodically sends a refresher packet to the server the user wants to
    "connect" to.
 1. Receives VGA text memory dumps, and renders them via `ncurses`.
 1. Run with `-h` to see usage and comment line options.
@@ -83,13 +83,13 @@ There are some non-traditional makefile targets that I find handy during
 development:
 
 1. `make format` - Reformats the C code w/ clang-format.
-1. `make setcap` - Runs the `setcap` command on the client, so enable a
+1. `make setcap` - Runs the `setcap` command on the client, to enable a
    non-root user to run it without requiring sudo.
 1. `make typos` - Runs [typos](https://crates.io/crates/typos) on the source
    files, finding spelling mistakes.
 1. `make bcclint` - Horrible hack that attempts to compile the DOS binaries
    with actual GCC (it will fail to produce a binary).  This is useful because
-   dev86's compiler, `bcc` is a traditional K&R compiler, and will unhelpfully
+   dev86's compiler, `bcc`, is a traditional K&R compiler, which will unhelpfully
    assume function prototypes if you forget to include the proper header.
    Modern `gcc -Wall` can be much more strict and issue all kinds of warnings
    for bad coding practices.
@@ -145,11 +145,11 @@ A: `rmtdos.com` and `vga_demo.com` might build there, but I've not bothered
 trying.  Currently, all 3 programs are built on Linux.  The DOS programs
 are built using ["dev86"](https://github.com/lkundrak/dev86).  FreeDOS ships
 with "dev86" (if it is not already installed, you can install it with the
-FreeDOS utility "fdimples").
+FreeDOS utility `fdimples.exe`).
 
 Q: How to I exit the client?
 
-A: `ALT-ESCAPE`.  The client sets ncurses to "raw" mode, so that the typical
+A: Press `ALT-ESCAPE`.  The client sets ncurses to "raw" mode, so that the typical
 termios control characters (ex: `CTRL-C`) do NOT generate signals, but
 instead are presented to the client, so that the client can send them to
 the DOS end.
