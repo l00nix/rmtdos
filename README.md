@@ -147,7 +147,7 @@ are built using ["dev86"](https://github.com/lkundrak/dev86).  FreeDOS ships
 with "dev86" (if it is not already installed, you can install it with the
 FreeDOS utility `fdimples.exe`).
 
-Q: How to I exit the client?
+Q: How do I exit the client?
 
 A: Press `ALT-ESCAPE`.  The client sets ncurses to "raw" mode, so that the typical
 termios control characters (ex: `CTRL-C`) do NOT generate signals, but
@@ -162,7 +162,7 @@ A: (wireshark): `"eth.type == 0x80ab"`
 
 Q: My DOS system does not have a NIC, can I use a serial port?
 
-A: Yes (in theory, I've not tested this).  Connect the DOS system to your
+A: In theory, yes; but I've not tested this.  Connect the DOS system to your
 Linux system via "null-modem" cable.  On the DOS side, run the "CSLIP" packet
 driver.  On the Linux end, configure "cslip" on the serial TTY device.  This
 guide contains a step-by-step walkthrough:
