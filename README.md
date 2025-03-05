@@ -41,7 +41,7 @@ patterns.
 1. Periodically sends a refresher packet to the server the user wants to
    "connect" to.
 1. Receives VGA text memory dumps, and renders them via `ncurses`.
-1. Run with `-h` to see usage and comment line options.
+1. Run with `-h` to see usage and command line options.
 1. Run with `-u` to uninstall/unload the resident program.
 
 ## Usage
