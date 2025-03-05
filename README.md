@@ -30,7 +30,7 @@ patterns.
    clients.
 1. Can receive control packets that include keystrokes to be shoved into
    the BIOS keyboard buffer.
-1. Run with `-h` to see usage and comment line options.
+1. Run with `-h` to see usage and command line options.
 
 `rmtdos-client`:
 
