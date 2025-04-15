@@ -112,7 +112,7 @@ void update_probing_window(const struct RawSocket *rs) {
 
       mvwprintw(w, y, 1, "%2d  %s   %2d  %3d %3d  %s", r->index,
                 fmt_mac_addr(mac_tmp, sizeof(mac_tmp), r->if_addr),
-                r->status.vga_mode, r->status.text_cols, r->status.text_rows,
+                r->status.video_mode, r->status.text_cols, r->status.text_rows,
                 stale);
       ++y;
     }
@@ -150,11 +150,11 @@ void debug_show_incoming_packet(const uint8_t *buf, size_t received) {
   }
 }
 
-void process_incoming_vga_text(const uint8_t *buf, size_t received) {
+void process_incoming_video_text(const uint8_t *buf, size_t received) {
   const struct ether_header *eh = (const struct ether_header *)buf;
   const struct ProtocolHeader *ph = (const struct ProtocolHeader *)(eh + 1);
-  const struct VgaText *vga = (const struct VgaText *)(ph + 1);
-  const uint8_t *data = (const uint8_t *)(vga + 1);
+  const struct VideoText *video = (const struct VideoText *)(ph + 1);
+  const uint8_t *data = (const uint8_t *)(video + 1);
 
   struct RemoteHost *rh = hostlist_find_by_mac(eh->ether_shost);
   if (!rh) {
@@ -163,20 +163,20 @@ void process_incoming_vga_text(const uint8_t *buf, size_t received) {
 
   gettimeofday(&(rh->tv_last_resp), NULL);
 
-  const uint16_t offset = ntohs(vga->offset);
-  const uint16_t count = ntohs(vga->count);
-  if (count + offset > sizeof(rh->vga_text_buffer)) {
+  const uint16_t offset = ntohs(video->offset);
+  const uint16_t count = ntohs(video->count);
+  if (count + offset > sizeof(rh->video_text_buffer)) {
     return;
   }
 
-  memcpy(rh->vga_text_buffer + offset, data, count);
+  memcpy(rh->video_text_buffer + offset, data, count);
 
-  rh->text_rows = vga->text_rows;
-  rh->text_cols = vga->text_cols;
+  rh->text_rows = video->text_rows;
+  rh->text_cols = video->text_cols;
 
   // we already have a place to store the cursor position
-  rh->status.cursor_row = vga->cursor_row;
-  rh->status.cursor_col = vga->cursor_col;
+  rh->status.cursor_row = video->cursor_row;
+  rh->status.cursor_col = video->cursor_col;
 
   update_session_window(rh, offset, count);
 }
@@ -219,7 +219,7 @@ void process_socket_io(struct RawSocket *rs) {
       hostlist_register(buf, received);
       break;
     case V1_VGA_TEXT:
-      process_incoming_vga_text(buf, received);
+      process_incoming_video_text(buf, received);
       break;
   }
 }
@@ -236,7 +236,7 @@ void start_remote_control(struct RemoteHost *rh) {
 void process_stdin_menu_mode() {
   int c = getch();
 
-  if (c == EXIT_WCH_CODE) {
+  if (c == EXIT_WCH_CODE || c == KEY_F(12) || c == 27) {
     g_running = 0;
     return;
   }
