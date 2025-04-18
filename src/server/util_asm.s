@@ -8,7 +8,7 @@ _htons:
   push    bp
   mov     bp, sp
   mov     ax, [bp + 4]          ; Input arg (word)
-  rol     ax, 8                 ; https://stackoverflow.com/a/47021804
+  xchg    al, ah
   pop     bp
   ret                           ; Result in AX.
 
