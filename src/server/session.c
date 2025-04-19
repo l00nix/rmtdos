@@ -172,6 +172,8 @@ void session_mgr_update_all() {
 
   resp->text_rows = vga.text_rows;
   resp->text_cols = vga.text_cols;
+  resp->cursor_row = vga.cursor_row;
+  resp->cursor_col = vga.cursor_col;
   resp->offset = htons(offset);
   resp->count = htons(word_count * VGA_WORD);
 
