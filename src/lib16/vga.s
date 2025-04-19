@@ -202,7 +202,7 @@ vga_read_state_no_vga:
   mov     ax, #$1200
   mov     bx, #$0010
   int     $10
-  cmp     bl, #$10  
+  cmp     bl, #$10
   jne     vga_read_state_have_vga_or_ega     ; EGA detected
 
 vga_read_state_done:
