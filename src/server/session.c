@@ -129,7 +129,7 @@ void session_mgr_update_all() {
 #endif
 
   // Need to wrap around and start over, but also the video mode could have
-  // changed since our last cycle, and the screne is now SHORTER than it used
+  // changed since our last cycle, and the screen is now SHORTER than it used
   // to be.
   if (video_next_row >= video.text_rows) {
     video_next_row = 0;
