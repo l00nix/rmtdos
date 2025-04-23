@@ -7,7 +7,8 @@
 
 uint32_t session_lifetime_bios_ticks = 182; // ~10s
 
-uint16_t vga_next_row = 0;
+//uint16_t video_segment = 0;
+uint16_t video_next_row = 0;
 
 uint16_t g_ethertype = ETHERTYPE_RMTDOS;
 

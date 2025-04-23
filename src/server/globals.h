@@ -18,8 +18,10 @@
 */
 extern uint32_t session_lifetime_bios_ticks;
 
-// Next row of VGA text to send in the next V1_VGA_TEXT packet.
-extern uint16_t vga_next_row;
+// Checksum of the video memory.  Used to detect changes in the video
+extern uint16_t video_checksum;
+// The next row of the video memory to write to.  This is used to
+extern uint16_t video_next_row;
 
 // Our custom 'EtherType' that we use.
 extern uint16_t g_ethertype;
@@ -28,7 +30,7 @@ extern uint16_t g_ethertype;
 extern uint8_t g_send_buffer[ETH_FRAME_LEN];
 
 #if DEBUG
-// Should we overlay some debugging data onto the VGA text screen.
+// Should we overlay some debugging data onto the text screen.
 extern int g_show_debug_overlay;
 #endif
 
