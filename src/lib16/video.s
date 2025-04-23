@@ -8,6 +8,7 @@
 
 SEG_COLOR = $B800
 SEG_MDA   = $B000
+BIOS_DATA = $0040
 
 .global _video_address
 _video_address:
@@ -21,7 +22,7 @@ _video_get_segment:
   push     bp
   mov      bp, sp
 
-  mov      ax, #$0040               ; BIOS data area
+  mov      ax, #BIOS_DATA           ; BIOS data area
   mov      es, ax
 
   seg      es
@@ -30,11 +31,11 @@ _video_get_segment:
   cmp      al, #$30                 ; MDA mode?
   jne      not_mda
 
-  mov      ax, #$b000               ; Return MDA segment
+  mov      ax, #SEG_MDA             ; Return MDA segment
   jmp      vgs_done
 
 not_mda:
-  mov      ax, #$b800               ; Return VGA/CGA segment
+  mov      ax, #SEG_COLOR           ; Return VGA/CGA segment
 
 vgs_done:
   pop      bp
@@ -67,7 +68,7 @@ _video_write_str:
 
   ;  Calculate screen offset 
   push     ds                       ; Need DS temporarily for BIOS data
-  mov      ax, #$0040               ; BIOS data area
+  mov      ax, #BIOS_DATA           ; BIOS data area
   mov      ds, ax   
   mov      bx, [$4a]                ; Number of screen columns (width)
   pop      ds                       ; Restore original DS
@@ -80,11 +81,11 @@ _video_write_str:
   mov      di, ax                   ; ES:DI points into text buffer start
 
   ; Handle page offset if needed (for VGA only)
-  cmp      word ptr [_video_address], #$b800
+  cmp      word ptr [_video_address], #SEG_COLOR
   jne      skip_page_offset         ; Skip for MDA
 
   push     ds                       ; Need DS again for BIOS data
-  mov      ax, #$0040
+  mov      ax, #BIOS_DATA
   mov      ds, ax
   mov      cx, [$4e]                ; Offset of current video page (word offset)
   pop      ds                       ; Restore original DS
@@ -179,7 +180,7 @@ _video_read_state:
   jb      video_rs_no_vga           ; No VGA, check for EGA
 
 video_rs_ega_vga:
-  mov     ax, #$0040                ; BIOS data area.
+  mov     ax, #BIOS_DATA            ; BIOS data area.
   mov     es, ax
   seg     es
   mov     al, [$84]                 ; Screen rows (minus one).
@@ -230,7 +231,7 @@ _video_clear_rows:
   mov      di, ax                   ; ES:DI = buffer pos to start clearing
 
   ;  Determine fill character/attribute 
-  cmp      word ptr [_video_address], #$b800
+  cmp      word ptr [_video_address], #SEG_COLOR
   jne      mda_attribute
 
   mov      ax, #$0720               ; VGA "space on light grey" 
@@ -326,7 +327,7 @@ checksum_loop:
   xchg     bh, bl                   ; swap bytes for checksum
   add      dx, bx                   ; add
   rol      dx, #1                   ; rotate checksum left by 1 bit 
-  add      si, #2                   ; sum
+  add      si, #2                   ; advance source pointer
   loop     checksum_loop            
 
   mov      ax, dx                   ; return checksum  
