@@ -9,7 +9,7 @@
 #include "client/globals.h"
 #include "client/network.h"
 
-#define EXIT_WCH_CODE 0x9b /* ALT-ESCAPE */
+#define EXIT_WCH_CODE 0x11 /* CTRL-q */
 
 // UI is in "session mode" (connected to a server).  Send the keystroke over
 // for server to inject it into the BIOS keyboard buffer.
