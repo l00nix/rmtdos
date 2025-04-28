@@ -84,7 +84,7 @@ void update_probing_window(const struct RawSocket *rs) {
             rs->ethertype);
   ++y;
   mvwprintw(w, y, 1, RMTDOS_VERSION);
-  mvwprintw(w, y, 50, "<CTRL-q> to exit");
+  mvwprintw(w, y, 50, "<CTRL-Q> to exit");
   ++y;
   mvwprintw(w, y, 1, "%s: %s", rs->if_name,
             fmt_mac_addr(mac_tmp, sizeof(mac_tmp), rs->if_addr));
