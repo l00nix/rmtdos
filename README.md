@@ -1,5 +1,7 @@
 # rmtdos
 
+This is a fork from https://github.com/dennisjenkins75/rmtdos - it allows you to quit the rmtdos-clint with the keyboard combination <CTRL-q>. I found when ssh'ing from a Windows machine to the LInux machine running rmtdos-client <ALT-ESC> does not work as <ALT-ESC> in Windows cycles through open windows in the order they were opened. That's it, the rest of the rmtdos and rmtdos-client programs is the same as the original fork.  
+
 Remotely control DOS-based systems from Linux
 
 Tested on FreeDOS-1.3 in QEMU and on a real Pentium-MMX 166 MHz.
